@@ -1,5 +1,5 @@
 <template>
-  <div class="tabbat">
+  <div class="tabbar">
     <van-tabbar route v-model="active">
       <template v-for="(item, index) in tabbarData" :key="index">
         <van-tabbar-item replace :to="item.path">
@@ -28,4 +28,12 @@ watch(route, (newValue) => {
 })
 </script>
 
-<style scoped></style>
+<style scoped lang="less">
+.tabbar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999;
+}
+</style>

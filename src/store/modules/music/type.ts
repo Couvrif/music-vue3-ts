@@ -5,7 +5,7 @@ interface songInfo {
   [propNames: string]: any
 }
 
-interface songPerson {
+export interface songPerson {
   id: number
   name: string
 }

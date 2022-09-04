@@ -27,7 +27,7 @@ const props = defineProps({
 .area-header {
   display: flex;
   justify-content: space-between;
-  margin: 10px;
+  margin-bottom: 10px;
 
   .area-header-title {
     font-size: 18px;

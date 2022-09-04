@@ -1,6 +1,5 @@
 <template>
   <div class="main-music">
-    <van-nav-bar title="MYMUSIC" />
     <van-search
       placeholder="请输入搜索关键词"
       input-align="center"
@@ -15,12 +14,14 @@
       </template>
     </van-swipe>
     <recommendedVue></recommendedVue>
+    <hotMenuVue></hotMenuVue>
   </div>
 </template>
 
 <script setup lang="ts">
 import { getMusicBanner } from '@/service/home/home'
 import recommendedVue from './cpn/recommended.vue'
+import hotMenuVue from './cpn/hotMenu.vue'
 import { ref } from 'vue'
 
 // 请求轮播图数据
@@ -35,6 +36,8 @@ ggetMusicBanner()
 <style scoped lang="less">
 .main-music {
   height: 100%;
+  overflow-y: auto;
+  padding-bottom: 50px;
 }
 
 .my-swipe .van-swipe-item {

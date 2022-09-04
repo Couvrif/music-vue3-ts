@@ -1,12 +1,11 @@
-:root{
-  --van-primary-color:#26ce8a;
-  --van-gray-9:#fafafa;
-  --van-background-color-light:var(--van-gray-9);
-  --van-search-content-background-color:white !important;
+:root {
+  --van-primary-color: #26ce8a;
+  --van-gray-9: #fafafa;
+  --van-background-color-light: var(--van-gray-9);
+  --van-search-content-background-color: white !important;
   /* --van-search-background-color:white !important; */
   /* --van-cell-background-color:white !important */
 
-
   /* 自定义全局样式 */
-  --font-color:#888888
+  --font-color: #888888;
 }
