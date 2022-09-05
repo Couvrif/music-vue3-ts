@@ -8,9 +8,13 @@ export {}
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     AreaHeader: typeof import('./src/components/area-header/area-header.vue')['default']
+    HotSong: typeof import('./src/components/hot-song/hot-song.vue')['default']
     Loading: typeof import('./src/components/loading/loading.vue')['default']
+    MenuDetailHeader: typeof import('./src/components/menu-detail-header/menu-detail-header.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SongList: typeof import('./src/components/song-list/song-list.vue')['default']
+    SongMenuList: typeof import('./src/components/song-menu-list/song-menu-list.vue')['default']
     Tabbar: typeof import('./src/components/tabbar/tabbar.vue')['default']
     VanIcon: typeof import('vant/es')['Icon']
     VanNavBar: typeof import('vant/es')['NavBar']

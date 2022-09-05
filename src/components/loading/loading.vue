@@ -23,7 +23,7 @@ const mainStore = useMainStore()
   align-items: center;
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.2);
-  z-index: 999;
+  z-index: 9999;
   .bg {
     width: 80px;
     height: 80px;

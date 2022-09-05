@@ -1,9 +1,13 @@
 <template>
   <div class="hot-menu">
-    <areaHeaderVue title="热门歌单" :more="true"></areaHeaderVue>
+    <areaHeaderVue
+      title="热门歌单"
+      :more="true"
+      :path="'/hotMenu'"
+    ></areaHeaderVue>
     <div class="hot-menu-content">
       <template v-for="item in hotMenuList" :key="item.coverImgId">
-        <div class="hot-menu-item">
+        <div class="hot-menu-item" @click="goMenuDetail(item.id)">
           <img :src="item.coverImgUrl" alt="" />
           <span>{{ formatNumber(item.playCount) }}</span>
           <div class="item-title">{{ item.name }}</div>
@@ -17,14 +21,21 @@ import { getSongMenuList } from '@/service/home/home'
 import { formatNumber } from '@/utils/changeData'
 import areaHeaderVue from '@/components/area-header/area-header.vue'
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { menuType } from '@/store/modules/music/type'
 
-const hotMenuList = ref([])
+const hotMenuList = ref<menuType>()
 const ggetSongMenuList = async () => {
   const result = await getSongMenuList()
   hotMenuList.value = result.playlists
   console.log('歌单', result)
 }
 ggetSongMenuList()
+
+const router = useRouter()
+const goMenuDetail = (id: string) => {
+  router.push(`/menuDetail/${id}`)
+}
 </script>
 <style lang="less" scoped>
 .hot-menu {

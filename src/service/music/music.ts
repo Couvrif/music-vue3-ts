@@ -9,7 +9,7 @@ export function getMusicBanner(type = 0) {
   })
 }
 
-export function getPlaylistDetail(id: number) {
+export function getPlaylistDetail(id: string) {
   return myRequest.get({
     url: '/playlist/detail',
     params: {
@@ -18,7 +18,7 @@ export function getPlaylistDetail(id: number) {
   })
 }
 
-export function getSongMenuList(cat = '全部', limit = 6, offset = 0): any {
+export function getSongMenuList(cat = '全部', limit = 6, offset = 0) {
   return myRequest.get({
     url: '/top/playlist',
     params: {
