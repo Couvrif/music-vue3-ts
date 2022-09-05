@@ -1,4 +1,6 @@
 export function formatNumber(num: string | number) {
+  console.log('ssssssssssssssss', num)
+
   num = Number(num)
   if (num == 0) {
     return num + ''

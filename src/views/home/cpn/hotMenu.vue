@@ -56,7 +56,7 @@ const goMenuDetail = (id: string) => {
     position: relative;
     // white-space: nowrap;
     img {
-      width: 100px;
+      width: 105px;
       border-radius: 10px;
     }
     span {

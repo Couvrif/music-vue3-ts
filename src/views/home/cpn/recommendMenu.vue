@@ -50,7 +50,7 @@ ggetSongMenuList()
       margin-left: 20px;
       position: relative;
       img {
-        width: 100px;
+        width: 105px;
         border-radius: 10px;
       }
       span {

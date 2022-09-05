@@ -58,4 +58,8 @@ console.log('lllllll', props.dataList)
     }
   }
 }
+
+.song-list-content:first-child {
+  margin-top: 10px;
+}
 </style>

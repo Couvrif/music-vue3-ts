@@ -23,9 +23,14 @@ const menuDetailData = ref<any>()
 const ggetPlaylistDetail = async () => {
   const result = await getPlaylistDetail(route.params.id as string)
   menuDetailData.value = result
-  console.log(menuDetailData, 'gfdshgfj')
+  console.log(menuDetailData, '疯狂的拉萨规划局')
 }
 ggetPlaylistDetail()
 </script>
 
-<style scoped></style>
+<style scoped lang="less">
+.menu-detail {
+  padding-top: 46px;
+  padding-bottom: 50px;
+}
+</style>

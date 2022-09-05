@@ -36,8 +36,6 @@ const props = defineProps({
 
 <style scoped lang="less">
 .hot-song {
-  padding-top: 46px;
-  padding-bottom: 50px;
   margin: 0 18px;
 }
 </style>
