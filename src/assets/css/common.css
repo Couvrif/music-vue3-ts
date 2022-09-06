@@ -3,6 +3,8 @@
   --van-gray-9: #fafafa;
   --van-background-color-light: var(--van-gray-9);
   --van-search-content-background-color: white !important;
+  --van-slider-button-width: 15px !important;
+  --van-slider-button-height: 15px !important;
   /* --van-search-background-color:white !important; */
   /* --van-cell-background-color:white !important */
 
