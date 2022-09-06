@@ -3,10 +3,10 @@
     <areaHeaderVue
       title="推荐歌曲"
       :more="true"
-      :path="'/showSong/2'"
+      :path="'/showSong/recommendSongList'"
     ></areaHeaderVue>
     <template v-for="(item, index) in musicStore.getSixRecommend" :key="index">
-      <div class="recommend-content">
+      <div class="recommend-content" @click="goMusic(item.id)">
         <img :src="item.al.picUrl" alt="" />
         <div class="recommend-content-info">
           <div class="info-left">
@@ -25,6 +25,7 @@ import areaHeaderVue from '@/components/area-header/area-header.vue'
 import useMusicStore from '@/store/modules/music/music'
 import { songPerson } from '@/store/modules/music/type'
 import { computed } from 'vue'
+import { useRouter } from 'vue-router'
 
 const musicStore = useMusicStore()
 musicStore.ggetPlaylistDetail()
@@ -35,6 +36,11 @@ const getPersongName = computed(() => {
     return songerStr
   }
 })
+
+const router = useRouter()
+const goMusic = (id: string) => {
+  router.push(`/music/${id}`)
+}
 </script>
 
 <style scoped lang="less">

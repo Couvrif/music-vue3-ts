@@ -24,27 +24,27 @@ const useMusicStore = defineStore('music', {
       const allPeaks = [
         {
           peakName: '新歌榜',
+          name: 'newPeakList',
           coverImgUrl:
             'https://p1.music.126.net/wVmyNS6b_0Nn-y6AX8UbpQ==/109951166952686384.jpg',
           playCount: '135486731',
-          peakList: this.newPeakList.slice(0, 3),
-          id: '0'
+          peakList: this.newPeakList.slice(0, 3)
         },
         {
           peakName: '飙升榜',
+          name: 'upPeakList',
           coverImgUrl:
             'https://p1.music.126.net/ZyUjc7K_GDpD8MO1-GQkmA==/109951166952706664.jpg',
           playCount: '4378573922',
-          peakList: this.upPeakList.slice(0, 3),
-          id: '3'
+          peakList: this.upPeakList.slice(0, 3)
         },
         {
           peakName: '原创榜',
+          name: 'originPeakList',
           coverImgUrl:
             'https://p1.music.126.net/iFZ_nw2V86IFk90dc50kdQ==/109951166961388699.jpg',
           playCount: '9654389342',
-          peakList: this.originPeakList.slice(0, 3),
-          id: '1'
+          peakList: this.originPeakList.slice(0, 3)
         }
       ]
       console.log('all', allPeaks)

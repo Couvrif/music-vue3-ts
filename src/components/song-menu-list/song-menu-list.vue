@@ -4,7 +4,7 @@
       <areaHeaderVue :title="item.cat" :more="false"></areaHeaderVue>
       <div class="menu-list-content">
         <template v-for="value in item.playlists" :key="value.name">
-          <div class="info-content">
+          <div class="info-content" @click="goMenuDetail(value.id)">
             <div class="info-top">
               <img :src="value.coverImgUrl" alt="" />
               <span>{{ formatNumber(value.playCount) }}</span>
@@ -21,6 +21,7 @@
 import areaHeaderVue from '@/components/area-header/area-header.vue'
 import { formatNumber } from '@/utils/changeData'
 import { defineProps } from 'vue'
+import { useRouter } from 'vue-router'
 
 const props = defineProps({
   dataList: {
@@ -28,6 +29,11 @@ const props = defineProps({
     default: () => []
   }
 })
+
+const router = useRouter()
+const goMenuDetail = (id: string) => {
+  router.push(`/menuDetail/${id}`)
+}
 </script>
 
 <style scoped lang="less">

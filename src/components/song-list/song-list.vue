@@ -1,13 +1,13 @@
 <template>
-  <div class="song-list">
+  <div class="song-list" v-if="dataList.length > 0">
     <template v-for="(item, index) in dataList" :key="item.name">
       <div class="song-list-content">
         <div class="song-index">{{ index + 1 }}</div>
         <div class="song-info">
-          <div class="info-name">{{ item?.name }}</div>
+          <div class="info-name">{{ item.name }}</div>
           <div class="info-songer">
             <img src="../../assets/images/icons/sq_icon.png" alt="" />{{
-              item?.ar[0].name
+              getSongerName(item)
             }}
           </div>
         </div>
@@ -17,7 +17,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps } from 'vue'
+import { defineProps, computed } from 'vue'
 
 const props = defineProps({
   dataList: {
@@ -25,7 +25,17 @@ const props = defineProps({
     default: () => []
   }
 })
-console.log('lllllll', props.dataList)
+
+const getSongerName = computed(() => {
+  return function (item: any) {
+    if (!item) return
+    let name = ''
+    // name = item.ar && item.ar[0].name
+    // name = item.artists && item.artists[0].name
+    name = item.ar ? item.ar[0].name : item.artists[0].name
+    return name
+  }
+})
 </script>
 
 <style scoped lang="less">
@@ -59,7 +69,7 @@ console.log('lllllll', props.dataList)
   }
 }
 
-.song-list-content:first-child {
-  margin-top: 10px;
-}
+// .song-list-content:first-child {
+//   margin-top: 10px;
+// }
 </style>

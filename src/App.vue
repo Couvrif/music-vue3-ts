@@ -1,12 +1,13 @@
 <template>
   <van-nav-bar
-    title="MYMUSIC"
+    :title="route.meta.title || 'MYMUSIC'"
     class="navbar"
     @click-left="onClickLeft"
     :left-arrow="isShowBack"
+    v-if="isShowNav"
   />
   <loadingVue></loadingVue>
-  <tabbarVue></tabbarVue>
+  <tabbarVue v-if="!isShowBack"></tabbarVue>
   <router-view />
 </template>
 
@@ -23,6 +24,14 @@ const onClickLeft = () => {
 }
 const isShowBack = computed(() => {
   if (route.path === '/home' || route.path === '/video') {
+    return false
+  } else {
+    return true
+  }
+})
+
+const isShowNav = computed(() => {
+  if (route.name === 'music') {
     return false
   } else {
     return true

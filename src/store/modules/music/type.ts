@@ -18,7 +18,7 @@ export interface songList {
 }
 
 export interface peakSongListType<T> {
-  id: string
+  name: string
   peakName: string
   coverImgUrl: string
   playCount: string

@@ -1,5 +1,5 @@
 <template>
-  <div class="menu-detail">
+  <div class="menu-detail" v-if="!!menuDetailData">
     <menuDetailHeaderVue
       :dataList="menuDetailData.playlist"
     ></menuDetailHeaderVue>

@@ -3,7 +3,9 @@
     <areaHeaderVue title="热门搜索" :more="false"></areaHeaderVue>
     <div class="hot-content">
       <template v-for="item in searchHotList" :key="item.first">
-        <div class="hot-item">{{ item.first }}</div>
+        <div class="hot-item" @click="goSearchDetail(item.first)">
+          {{ item.first }}
+        </div>
       </template>
     </div>
   </div>
@@ -13,6 +15,7 @@
 import areaHeaderVue from '@/components/area-header/area-header.vue'
 import { getSearchHot } from '@/service/search/search'
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 let searchHotList = ref<any>()
 const ggetSearchHot = async () => {
@@ -21,6 +24,11 @@ const ggetSearchHot = async () => {
   console.log(searchHotList.value, 'aaaa')
 }
 ggetSearchHot()
+
+const router = useRouter()
+const goSearchDetail = (keywords: string) => {
+  router.push(`/search/detail/${keywords}`)
+}
 </script>
 
 <style scoped lang="less">

@@ -13,7 +13,15 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/video',
     name: 'video',
+    meta: {
+      title: '推荐视频'
+    },
     component: () => import('../views/video/video.vue')
+  },
+  {
+    path: '/test',
+    name: 'test',
+    component: () => import('../views/test/test.vue')
   },
   {
     path: '/search',
@@ -21,7 +29,17 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('../views/search/search.vue')
   },
   {
-    path: '/showSong/:id',
+    path: '/search/detail/:keywords',
+    name: 'searchDetail',
+    component: () => import('../views/search/search-detail/search-detail.vue')
+  },
+  {
+    path: '/video/detail/:id',
+    name: 'videoDetail',
+    component: () => import('../views/video/video-detail/video-detail.vue')
+  },
+  {
+    path: '/showSong/:name',
     name: 'showSong',
     component: () => import('../views/showSong/showSong.vue')
   },
@@ -34,6 +52,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/menuDetail/:id',
     name: 'menuDetail',
     component: () => import('../views/menuDetail/menuDetail.vue')
+  },
+  {
+    path: '/music/:id',
+    name: 'music',
+    component: () => import('../views/music/music.vue')
   }
 ]
 

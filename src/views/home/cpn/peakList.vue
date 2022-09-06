@@ -2,7 +2,7 @@
   <div class="peak-list">
     <areaHeaderVue title="巅峰榜" :more="false"></areaHeaderVue>
     <template v-for="item in musicStore.getThreePeaks" :key="item.peakName">
-      <div class="peak-content" @click="goShowSong(item.id)">
+      <div class="peak-content" @click="goShowSong(item.name)">
         <div class="peak-left">
           <div class="peak-title">{{ item.peakName }}</div>
           <template v-for="(value, index) in item.peakList" :key="index">
@@ -37,8 +37,8 @@ const getPersongName = computed(() => {
   }
 })
 
-const goShowSong = (id: string) => {
-  router.push(`/showSong/${id}`)
+const goShowSong = (name: string) => {
+  router.push(`/showSong/${name}`)
 }
 </script>
 
