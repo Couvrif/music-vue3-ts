@@ -1,7 +1,7 @@
 <template>
   <div class="song-list" v-if="dataList.length > 0">
     <template v-for="(item, index) in dataList" :key="item.name">
-      <div class="song-list-content">
+      <div class="song-list-content" @click="goMusicPlay(item.id)">
         <div class="song-index">{{ index + 1 }}</div>
         <div class="song-info">
           <div class="info-name">{{ item.name }}</div>
@@ -18,6 +18,7 @@
 
 <script setup lang="ts">
 import { defineProps, computed } from 'vue'
+import { useRouter } from 'vue-router'
 
 const props = defineProps({
   dataList: {
@@ -36,6 +37,11 @@ const getSongerName = computed(() => {
     return name
   }
 })
+
+const router = useRouter()
+const goMusicPlay = (id: string) => {
+  router.push(`/music/${id}`)
+}
 </script>
 
 <style scoped lang="less">

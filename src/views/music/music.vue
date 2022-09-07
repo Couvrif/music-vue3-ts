@@ -6,7 +6,7 @@
     </div>
     <audio
       ref="musicRef"
-      :src="playMusic(songInfo.id)"
+      :src="`https://music.163.com/song/media/outer/url?id=${songId}.mp3`"
       class="mp3"
       autoplay="autoplay"
       @play="ready"
@@ -47,6 +47,7 @@
               class="small left"
               src="../../assets/images/player/play_prev.png"
               alt=""
+              @click="prevSong"
             />
             <img
               class="big left"
@@ -62,6 +63,7 @@
               class="small right"
               src="../../assets/images/player/play_next.png"
               alt=""
+              @click="nextSong"
             />
             <img
               class="small right"
@@ -72,12 +74,8 @@
         </div>
       </van-swipe-item>
       <van-swipe-item>
-        <div
-          class="word-content"
-          v-memo="[lyric]"
-          v-if="lyric.length > 0"
-          ref="wordContentRef"
-        >
+        <div class="word-content" v-if="lyric.length > 0" ref="wordContentRef">
+          <!-- v-memo="[lyric]" -->
           <template v-for="(item, index) in lyric" :key="index">
             <div
               class="word-item"
@@ -97,7 +95,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { nextTick, ref, toRaw } from 'vue'
 import { getSongDetail, getSongLyric } from '@/service/player/player'
 import { useRoute, useRouter } from 'vue-router'
 import { computed } from '@vue/reactivity'
@@ -107,17 +105,20 @@ import {
   matchWord,
   wordType
 } from '@/utils/changeData'
+import useMusicStore from '@/store/modules/music/music'
 
 // 获取数据
 const route = useRoute()
 const router = useRouter()
 let lyric = ref<Array<any>>()
+let songId = ref<string>()
 let songInfo = ref<any>()
 let songWord = ref<wordType>({ word: '', index: '' })
-const gData = async () => {
-  const res1 = await getSongDetail(route.params.id as string)
-  const res2 = await getSongLyric(route.params.id as string)
+const gData = async (id?: string) => {
+  const res1 = await getSongDetail(id || (route.params.id as string))
+  const res2 = await getSongLyric(id || (route.params.id as string))
   songInfo.value = res1.songs[0]
+  songId.value = songInfo.value.id
   lyric.value = transformWord(res2.lrc.lyric)
   console.log('111111111111111', songInfo.value, lyric)
 }
@@ -133,11 +134,9 @@ let isActive = ref<number>(0)
 const onChangeSwipe = (index: any) => (isActive.value = index)
 
 // 播放音乐
-const playMusic = computed(() => {
-  return function music(id: string) {
-    return `https://music.163.com/song/media/outer/url?id=${id}.mp3`
-  }
-})
+// const playMusic = (id: string) => {
+//   return `https://music.163.com/song/media/outer/url?id=${id}.mp3`
+// }
 
 // 点击暂停控制音乐的播放
 let isPlaying = ref<boolean>(true)
@@ -160,6 +159,16 @@ const pause = () => {
   console.log('停止播放')
 }
 
+// 使用ref函数获取全部歌词div的高度
+let allSongHeight = ref<any>([])
+let wordContentRef = ref<HTMLElement>()
+const songWordRef = (value: any) => {
+  nextTick(() => {
+    allSongHeight.value?.push(value.offsetTop)
+    // console.log('对应的div', value.offsetTop, allSongHeight.value)
+  })
+}
+
 // 播放过程中控制时间和滑动条显示
 let currentTime = ref<number>(0)
 let sliderValue = ref<number>()
@@ -168,11 +177,17 @@ const timeupdate = () => {
   if (!isSocket.value) {
     currentTime.value = playTime
     sliderValue.value = (playTime * 100) / songInfo.value.dt
-    console.log(musicRef?.value?.currentTime, sliderValue.value)
+    // console.log(musicRef?.value?.currentTime, sliderValue.value)
   }
   const wordResult = matchWord(playTime, lyric.value as Array<any>)
   if (wordResult.word !== songWord.value.word) {
     songWord.value = wordResult
+    nextTick(() => {
+      wordContentRef.value?.scrollTo({
+        top: allSongHeight.value[wordResult.index as string] - 300,
+        behavior: 'smooth'
+      })
+    })
   }
 }
 
@@ -196,11 +211,31 @@ const sockeUpdate = (value: number) => {
   console.log('实时拖动', value)
 }
 
-// 使用ref函数获取全部歌词div的高度
-let allSongHeight = ref<Array<any>>()
-let wordContentRef = ref<HTMLElement>()
-const songWordRef = (value: any) => {
-  console.log('对应的div', value, wordContentRef.value)
+// 播放上一首或者下一首ddddd
+const musicStore = useMusicStore()
+const playList = toRaw(musicStore.playerList)
+const prevSong = () => {
+  let index = 0
+  if (musicStore.playIndex === 0) {
+    index = playList.length - 1
+  } else {
+    index = musicStore.playIndex - 1
+  }
+  gData(playList[index].id)
+  musicStore.playIndex = index
+  console.log('分享', musicStore.playerList, musicStore.playIndex)
+}
+
+const nextSong = () => {
+  let index = 0
+  if (musicStore.playIndex === musicStore.playIndex - 1) {
+    index = 0
+  } else {
+    index = musicStore.playIndex + 1
+  }
+  gData(playList[index].id)
+  musicStore.playIndex = index
+  console.log('分享', musicStore.playerList, musicStore.playIndex)
 }
 </script>
 

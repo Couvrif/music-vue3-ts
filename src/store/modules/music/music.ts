@@ -13,7 +13,9 @@ const useMusicStore = defineStore('music', {
     recommendSongList: [] as songList[],
     newPeakList: [] as songList[],
     originPeakList: [] as songList[],
-    upPeakList: [] as songList[]
+    upPeakList: [] as songList[],
+    playerList: [] as any[],
+    playIndex: 0
   }),
   getters: {
     getSixRecommend(): songList[] {

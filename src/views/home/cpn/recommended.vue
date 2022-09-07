@@ -6,7 +6,10 @@
       :path="'/showSong/recommendSongList'"
     ></areaHeaderVue>
     <template v-for="(item, index) in musicStore.getSixRecommend" :key="index">
-      <div class="recommend-content" @click="goMusic(item.id)">
+      <div
+        class="recommend-content"
+        @click="goMusic(item.id, index, musicStore.getSixRecommend)"
+      >
         <img :src="item.al.picUrl" alt="" />
         <div class="recommend-content-info">
           <div class="info-left">
@@ -23,7 +26,7 @@
 <script setup lang="ts">
 import areaHeaderVue from '@/components/area-header/area-header.vue'
 import useMusicStore from '@/store/modules/music/music'
-import { songPerson } from '@/store/modules/music/type'
+import { songPerson, songList } from '@/store/modules/music/type'
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
 
@@ -38,7 +41,9 @@ const getPersongName = computed(() => {
 })
 
 const router = useRouter()
-const goMusic = (id: string) => {
+const goMusic = (id: string, index: number, playList: any[]) => {
+  musicStore.playerList = playList
+  musicStore.playIndex = index
   router.push(`/music/${id}`)
 }
 </script>
