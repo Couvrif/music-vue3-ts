@@ -13,33 +13,58 @@ export function formatNumber(num: string | number) {
 
 export function formatDuration(num: number) {
   // 将毫秒转成秒
-  const zsecond = Math.floor(num / 1000)
-  const allTime = (zsecond / 60).toFixed(1).split('.')
-  const newMinute = transformMinute(allTime[0])
-  const newSecond = transformSecond(allTime[1])
-  console.log(newMinute)
-  return newMinute + ':' + newSecond
+  num = num / 1000
+  const minute = Math.floor(num / 60)
+  const second = Math.floor(num) % 60
+  return transformMinute(minute) + ':' + transformMinute(second)
 }
 
-// 处理分钟
-export function transformMinute(minute: string) {
-  const ArrMin = minute.split('')
-  if (ArrMin.length === 1) {
-    if (minute === '0') {
-      return '00'
-    } else {
-      return '0' + minute
+// 处理时间格式
+export function transformMinute(minute: number) {
+  return ('00' + String(minute)).slice(String(minute).length)
+}
+
+// 歌词处理
+const timeRule = /\[(\d{2}):(\d{2})\.(\d{2,3})\]/g
+export function transformWord(word: string) {
+  const wordArr = word.split('\n')
+  const newWordArr: any[] = []
+
+  for (const item of wordArr) {
+    const gtime = timeRule.exec(item) as Array<any>
+    if (!gtime) continue
+    const minute = gtime[1] * 60 * 1000
+    const second = gtime[2] * 1000
+    const msecond = gtime[3].length === 2 ? gtime[3] * 10 : gtime[3] * 1
+
+    const time = minute + second + msecond
+    const text = item.replaceAll(timeRule, '')
+    newWordArr.push({ time, text })
+  }
+  return newWordArr
+}
+
+// 歌词匹配
+export interface wordType {
+  word?: string
+  index?: string
+}
+
+export function matchWord(time: number, wordList: Array<any>): wordType {
+  let word = wordList[wordList.length - 1].text
+  let wordObj = {}
+  for (const index in wordList) {
+    if (wordList[index].time > time) {
+      if (Number(index) === 0) {
+        word = wordList[index].text
+        wordObj = { word, index: 0 }
+      } else {
+        word = wordList[Number(index) - 1].text
+        wordObj = { word, index: Number(index) - 1 }
+      }
+
+      break
     }
-  } else {
-    return minute
   }
-}
-
-// 处理秒
-export function transformSecond(sec: string) {
-  if (sec === '0') {
-    return '00'
-  } else {
-    return String((Number(sec) * 60) / 10)
-  }
+  return wordObj
 }
